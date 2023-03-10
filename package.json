@@ -11,7 +11,7 @@
     "react-scripts": "4.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --openssl-legacy-provider start",
     "test": "react-scripts test",
     "server": "json-server --watch db.json -p 3001"
   },

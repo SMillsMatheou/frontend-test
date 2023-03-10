@@ -2,12 +2,25 @@
   width: 30rem;
 }
 
+.search-container button {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  border: 1px solid #e4e4e4;
+  display: block;
+  background-color: white;
+}
+
+.search-container button:hover {
+  background-color: lightgrey;
+  cursor: pointer;
+}
+
 .search-box {
   width: 100%;
   padding: 1rem;
   font-size: 1rem;
   border: 2px solid #e4e4e4;
-  border-radius: 4px;
 }
 
 .search-box:focus {

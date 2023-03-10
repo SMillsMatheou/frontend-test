@@ -4,7 +4,7 @@ import { fetchSuggestions } from "./utils/api";
 
 import "./Autocomplete.css";
 
-function Autocomplete() {
+function Autocomplete({setProductId}) {
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
@@ -13,6 +13,11 @@ function Autocomplete() {
       setSuggestions(_suggestions)
     );
   }, [searchTerm]);
+
+  const handleSelect = (id) => {
+    setProductId(id);
+    setSearchTerm("");
+  }
 
   return (
     <div className="search-container">
@@ -23,7 +28,11 @@ function Autocomplete() {
         placeholder="Search for a product"
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      {/* TODO: render search suggestions */}
+      {searchTerm && suggestions.map((item) => {
+        return (
+          <button key={item.id} onClick={() => handleSelect(item.id)}>{item.title}</button>
+        )
+      })}
     </div>
   );
 }
