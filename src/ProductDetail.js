@@ -22,16 +22,13 @@ function ProductDetail({ productId }) {
           <img src={productInfo.image} className="product-image" />
         </div>
         <div className="row">
-          <div className="row-title">Name:</div>
-          <div className="row-body">{productInfo.title}</div>
+          <div className="product-title">{productInfo.title}</div>
         </div>
         <div className="row">
-          <div className="row-title">Name:</div>
-          <div className="row-body">{productInfo.description}</div>
+          <div className="product-description">{productInfo.description}</div>
         </div>
         <div className="row">
-          <div className="row-title">Price:</div>
-          <div className="row-body">{productInfo.price}</div>
+          <div className="product-price">{Intl.NumberFormat('en-gb', {style: 'currency', currency: 'GBP'}).format(productInfo.price)}</div>
         </div>
       </div>
     );

@@ -17,6 +17,20 @@
   font-weight: bold;
 }
 
+.product-title {
+  font-weight: bold;
+  color: grey;
+}
+
+.product-description {
+  color: #A7A7A7;
+}
+
+.product-price {
+  font-weight: bold;
+  color: grey;
+}
+
 .product-image {
   max-width: 100%;
 }
