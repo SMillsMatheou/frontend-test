@@ -19,17 +19,6 @@
   }
 }
 
-.row {
-  display: flex;
-  margin: 1rem 0;
-}
-
-.row-title {
-  width: 8rem;
-  flex-shrink: 0;
-  font-weight: bold;
-}
-
 .product-title {
   font-weight: bold;
   color: grey;
