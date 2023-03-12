@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
 import { fetchSuggestions } from '../../utils';
+import { Toast } from '../Toast';
 
 import './Autocomplete.css';
 
 export function Autocomplete({ setProductId }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState([]);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (!searchTerm) {
@@ -19,6 +21,9 @@ export function Autocomplete({ setProductId }) {
         const filteredSuggestions = _suggestions;
         filteredSuggestions.length = Math.min(filteredSuggestions.length, 10);
         setSuggestions(filteredSuggestions);
+      }).catch((e) => {
+        setError(e.message);
+        setTimeout(() => setError(), 3000);
       });
     }, 500);
 
@@ -33,6 +38,7 @@ export function Autocomplete({ setProductId }) {
 
   return (
     <div className="search-container">
+      {error && <Toast message={error} />}
       <input
         type="text"
         value={searchTerm}
