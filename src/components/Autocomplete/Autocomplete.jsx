@@ -17,17 +17,23 @@ export function Autocomplete({ setProductId, setIsLoading }) {
     }
 
     const searchTimeout = setTimeout(() => {
-      setIsLoading(true);
-      fetchSuggestions(searchTerm).then((_suggestions) => {
-        const filteredSuggestions = _suggestions;
-        filteredSuggestions.length = Math.min(filteredSuggestions.length, 10);
-        setSuggestions(filteredSuggestions);
-        setIsLoading(false);
-      }).catch((e) => {
+      try {
+        setIsLoading(true);
+        fetchSuggestions(searchTerm).then((_suggestions) => {
+          const filteredSuggestions = _suggestions;
+          filteredSuggestions.length = Math.min(filteredSuggestions.length, 10);
+          setSuggestions(filteredSuggestions);
+          setIsLoading(false);
+        }).catch((e) => {
+          setError(e.message);
+          setIsLoading(false);
+          setTimeout(() => setError(), 3000);
+        });
+      } catch (e) {
         setError(e.message);
         setIsLoading(false);
         setTimeout(() => setError(), 3000);
-      });
+      }
     }, 500);
 
     // eslint-disable-next-line consistent-return
@@ -40,9 +46,10 @@ export function Autocomplete({ setProductId, setIsLoading }) {
   };
 
   return (
-    <div className="search-container">
+    <div data-testid="autocomplete__container" className="search-container">
       {error && <Toast message={error} />}
       <input
+        data-testid="autocomplete__search-box"
         type="text"
         value={searchTerm}
         className="search-box"
@@ -50,7 +57,7 @@ export function Autocomplete({ setProductId, setIsLoading }) {
         onChange={(e) => setSearchTerm(e.target.value)}
       />
       {searchTerm && suggestions.map((item) => (
-        <button type="button" key={item.id} onClick={() => handleSelect(item.id)}>{item.title}</button>
+        <button data-testid={`autocomplete__result-${item.id}`} type="button" key={item.id} onClick={() => handleSelect(item.id)}>{item.title}</button>
       ))}
     </div>
   );

@@ -15,16 +15,22 @@ export function ProductDetail({ productId, setIsLoading }) {
     setIsLoading(true);
     // added articially longer loading time to demonstrate spinner
     setTimeout(() => {
-      fetchProductDetail(productId).then((
-        _productInfo,
-      ) => {
-        setIsLoading(false);
-        setProductInfo(_productInfo);
-      }).catch((e) => {
+      try {
+        fetchProductDetail(productId).then((
+          _productInfo,
+        ) => {
+          setIsLoading(false);
+          setProductInfo(_productInfo);
+        }).catch((e) => {
+          setError(e.message);
+          setIsLoading(false);
+          setTimeout(() => setError(), 3000);
+        });
+      } catch (e) {
         setError(e.message);
         setIsLoading(false);
         setTimeout(() => setError(), 3000);
-      });
+      }
     }, 1000);
   }, [productId]);
 
@@ -33,18 +39,18 @@ export function ProductDetail({ productId, setIsLoading }) {
   }
 
   const renderProductInfo = () => (
-    <div className="detail-container">
+    <div data-testid="productdetail__container" className="detail-container">
       <div className="row">
-        <img src={productInfo.image} className="product-image" alt="" />
+        <img data-testid="productdetail__img" src={productInfo.image} className="product-image" alt="" />
       </div>
       <div className="row">
-        <div className="product-title">{productInfo.title}</div>
+        <div data-testid="productdetail__title" className="product-title">{productInfo.title}</div>
       </div>
       <div className="row">
-        <div className="product-description">{productInfo.description}</div>
+        <div data-testid="productdetail__description" className="product-description">{productInfo.description}</div>
       </div>
       <div className="row">
-        <div className="product-price">{Intl.NumberFormat('en-gb', { style: 'currency', currency: 'GBP' }).format(productInfo.price)}</div>
+        <div data-testid="productdetail__price" className="product-price">{Intl.NumberFormat('en-gb', { style: 'currency', currency: 'GBP' }).format(productInfo.price)}</div>
       </div>
     </div>
   );

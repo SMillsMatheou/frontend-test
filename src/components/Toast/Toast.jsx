@@ -4,7 +4,7 @@ import './Toast.css';
 
 export function Toast({ message }) {
   const renderToast = (
-    <div className="toast">
+    <div data-testid="toast__container" className="toast">
       {message}
     </div>
   );
