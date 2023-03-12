@@ -1,5 +1,7 @@
 .search-container {
-  width: 30rem;
+  max-width: 30rem;
+  min-width: 0;
+  width: 100%
 }
 
 .search-container button {
