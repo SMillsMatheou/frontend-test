@@ -5,7 +5,7 @@ import { Toast } from '../Toast';
 
 import './Autocomplete.css';
 
-export function Autocomplete({ setProductId }) {
+export function Autocomplete({ setProductId, setIsLoading }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [error, setError] = useState('');
@@ -17,12 +17,15 @@ export function Autocomplete({ setProductId }) {
     }
 
     const searchTimeout = setTimeout(() => {
+      setIsLoading(true);
       fetchSuggestions(searchTerm).then((_suggestions) => {
         const filteredSuggestions = _suggestions;
         filteredSuggestions.length = Math.min(filteredSuggestions.length, 10);
         setSuggestions(filteredSuggestions);
+        setIsLoading(false);
       }).catch((e) => {
         setError(e.message);
+        setIsLoading(false);
         setTimeout(() => setError(), 3000);
       });
     }, 500);
