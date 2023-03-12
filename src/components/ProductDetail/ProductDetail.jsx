@@ -1,17 +1,28 @@
 import React, { useState, useEffect } from 'react';
 
 import { fetchProductDetail } from '../../utils';
+import { Toast } from '../Toast';
 
 import './ProductDetail.css';
 
 export function ProductDetail({ productId }) {
   const [productInfo, setProductInfo] = useState(null);
+  const [error, setError] = useState();
 
   useEffect(() => {
     if (!productId) return;
 
-    fetchProductDetail(productId).then((_productInfo) => setProductInfo(_productInfo));
+    fetchProductDetail(productId).then((
+      _productInfo,
+    ) => setProductInfo(_productInfo)).catch((e) => {
+      setError(e.message);
+      setTimeout(() => setError(), 3000);
+    });
   }, [productId]);
+
+  if (error) {
+    return <Toast message={error} />;
+  }
 
   const renderProductInfo = () => (
     <div className="detail-container">
