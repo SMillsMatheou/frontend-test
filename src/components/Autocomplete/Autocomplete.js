@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-import { fetchSuggestions } from "./utils/api";
+import { fetchSuggestions } from "../../utils";
 
 import "./Autocomplete.css";
 
-function Autocomplete({setProductId}) {
+export const Autocomplete = function({setProductId}) {
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
@@ -48,5 +48,3 @@ function Autocomplete({setProductId}) {
     </div>
   );
 }
-
-export default Autocomplete;

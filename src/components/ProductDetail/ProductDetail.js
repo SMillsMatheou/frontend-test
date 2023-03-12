@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-import { fetchProductDetail } from "./utils/api";
+import { fetchProductDetail } from "../../utils";
 
 import "./ProductDetail.css";
 
-function ProductDetail({ productId }) {
+export const ProductDetail = function({ productId }) {
   const [productInfo, setProductInfo] = useState(null);
 
   useEffect(() => {
@@ -36,5 +36,3 @@ function ProductDetail({ productId }) {
 
   return productInfo && renderProductInfo();
 }
-
-export default ProductDetail;
