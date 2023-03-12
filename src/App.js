@@ -2,8 +2,7 @@ import React, { useState } from "react";
 
 import "./App.css";
 
-import Autocomplete from "./Autocomplete";
-import ProductDetail from "./ProductDetail";
+import { Autocomplete, ProductDetail } from "./components";
 
 function App() {
   const [productId, setProductId] = useState();
