@@ -9,10 +9,22 @@ function Autocomplete({setProductId}) {
   const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
-    fetchSuggestions(searchTerm).then((_suggestions) =>
-      setSuggestions(_suggestions)
-    );
+    if(!searchTerm) {
+      setSuggestions([]);
+      return;
+    };
+
+    const searchTimeout = setTimeout(() => {
+      fetchSuggestions(searchTerm).then((_suggestions) => {
+        console.log(searchTerm);
+        _suggestions.length = Math.min(_suggestions.length, 10);
+        setSuggestions(_suggestions)
+      });
+    }, 500);
+
+    return () => clearTimeout(searchTimeout);
   }, [searchTerm]);
+
 
   const handleSelect = (id) => {
     setProductId(id);
