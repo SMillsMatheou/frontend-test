@@ -5,19 +5,27 @@ import { Toast } from '../Toast';
 
 import './ProductDetail.css';
 
-export function ProductDetail({ productId }) {
+export function ProductDetail({ productId, setIsLoading }) {
   const [productInfo, setProductInfo] = useState(null);
   const [error, setError] = useState();
 
   useEffect(() => {
     if (!productId) return;
 
-    fetchProductDetail(productId).then((
-      _productInfo,
-    ) => setProductInfo(_productInfo)).catch((e) => {
-      setError(e.message);
-      setTimeout(() => setError(), 3000);
-    });
+    setIsLoading(true);
+    // added articially longer loading time to demonstrate spinner
+    setTimeout(() => {
+      fetchProductDetail(productId).then((
+        _productInfo,
+      ) => {
+        setIsLoading(false);
+        setProductInfo(_productInfo);
+      }).catch((e) => {
+        setError(e.message);
+        setIsLoading(false);
+        setTimeout(() => setError(), 3000);
+      });
+    }, 1000);
   }, [productId]);
 
   if (error) {
