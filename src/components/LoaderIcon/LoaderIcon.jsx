@@ -3,5 +3,5 @@ import React from 'react';
 import './LoaderIcon.css';
 
 export function LoaderIcon() {
-  return <div className="loader" />;
+  return <div data-testid="loadericon__container" className="loader" />;
 }
